@@ -1,0 +1,11 @@
+<form action="rev" method="post">
+{% for id in ids %}
+	<div>
+	<img src="image?id={{id}}">
+	{{id}}
+	<input type="text" name="{{id}}" />
+	</div>
+{% endfor %}
+<input type="submit" value="Submit" />
+</form>
+

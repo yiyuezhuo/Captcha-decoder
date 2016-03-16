@@ -229,7 +229,7 @@ def section_likehood_image(im1,left1,right1,im2):
         rl.append(r)
     return rl
         
-        
+'''
 sweet=Image.open('141.png')
 im=Image.open('0.jpg')
 im0=im
@@ -238,3 +238,4 @@ im2=Image.open('data/2.jpg')
 im3=Image.open('data/3.jpg')
 
 im=im.convert('1')
+'''

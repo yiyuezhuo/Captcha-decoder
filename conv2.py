@@ -21,16 +21,18 @@ class Model(object):
         if y_mode=='y':
             (X_train, y_train), (X_test, y_test) = data
             nb_classes = max(max(y_train),max(y_test))+1
-            print('nb_classes',nb_classes)
+            
             
             Y_train = np_utils.to_categorical(y_train, nb_classes)
             Y_test = np_utils.to_categorical(y_test, nb_classes)
         elif y_mode=='Y':
             (X_train, Y_train), (X_test, Y_test) = data
+            nb_classes=len(Y_train[0])
 
         print('X_train shape:', X_train.shape)
         print(X_train.shape[0], 'train samples')
         print(X_test.shape[0], 'test samples')
+        print('nb_classes',nb_classes)
         
         X_train = X_train.astype('float32')
         X_test = X_test.astype('float32')
@@ -120,6 +122,6 @@ if __name__=='__main__':
     tag=Tag(pdd,'tag',standard_image=standard_image)
     db=Database(tag)    
     
-    mod=Model(tag.select())
+    mod=Model(db.select())
     model=mod.model
     mod.fit(20)

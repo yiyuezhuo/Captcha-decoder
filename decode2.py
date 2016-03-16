@@ -5,7 +5,7 @@ Created on Wed Mar 16 08:22:23 2016
 @author: yiyuezhuo
 """
 
-from decoder import get_cut
+from decoder import get_cut,convert
 from PIL import Image
 import numpy as np
 
@@ -23,12 +23,12 @@ class GeneralImage(object):
         self.standard_image=standard_image
         self.db=db
         if type(im)==str:
-            self.im=Image.open(im)
-        else:
-            self.im=im
+            im=Image.open(im)
+        self.im_origin=im
+        self.im=convert(im)
         self.cut_l=im_cut(self.im)
         self.tag=None
-        self.array_l=[self.standard_image.to_array(cut) for cut in self.cut_l]
+        self.array_l=[self.standard_image.to_array(self.standard_image.to_standard(cut)) for cut in self.cut_l]
     def adapt(self,array):
         return np.array([[array]])
     def predict(self,model,mode='prob'):
@@ -48,9 +48,11 @@ db=Database(tag)
 
 from conv2 import Model
 
-mod=Model(tag.select())
+mod=Model(db.select())
 model=mod.model
+'''
 mod.fit(20)
 
-gi=GeneralImage('0.jpg')
+gi=GeneralImage('0.jpg',standard_image,db)
 print gi.predict(mod)
+'''
